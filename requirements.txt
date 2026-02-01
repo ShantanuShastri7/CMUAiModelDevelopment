@@ -1,5 +1,0 @@
-# Add your dependencies here, e.g.:
-# openai
-# pandas
-# streamlit
-# chromadb
