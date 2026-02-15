@@ -1,0 +1,142 @@
+[
+    {
+        "query_id": 0,
+        "query": "What is 'Context Precision' in RAG evaluation?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:16.093557"
+    },
+    {
+        "query_id": 1,
+        "query": "How does Ragas measure faithfulness?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:17.422155"
+    },
+    {
+        "query_id": 2,
+        "query": "What are the limitations of LLM-as-a-judge?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:18.255370"
+    },
+    {
+        "query_id": 3,
+        "query": "Define 'Groundness' in the context of RAG.",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:19.352584"
+    },
+    {
+        "query_id": 4,
+        "query": "What is 'Self-RAG' and how does it work?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:20.598954"
+    },
+    {
+        "query_id": 5,
+        "query": "How does 'Corrective RAG' improve retrieval?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:21.768211"
+    },
+    {
+        "query_id": 6,
+        "query": "What metrics are used to evaluate retrieval quality?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:22.735306"
+    },
+    {
+        "query_id": 7,
+        "query": "Explain the concept of 'Hit Rate'.",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:24.389521"
+    },
+    {
+        "query_id": 8,
+        "query": "What is the difference between sparse and dense retrieval?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:25.511387"
+    },
+    {
+        "query_id": 9,
+        "query": "How does chunk size affect RAG performance?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:26.557867"
+    },
+    {
+        "query_id": 10,
+        "query": "Compare Ragas and TruLens evaluation frameworks.",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:27.492291"
+    },
+    {
+        "query_id": 11,
+        "query": "What are the common failure modes of RAG systems according to recent research?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:28.630394"
+    },
+    {
+        "query_id": 12,
+        "query": "How can we mitigate hallucinations in RAG?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:29.739764"
+    },
+    {
+        "query_id": 13,
+        "query": "Discuss the trade-offs between latency and accuracy in RAG.",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:30.736983"
+    },
+    {
+        "query_id": 14,
+        "query": "Summarize the state-of-the-art in reference-free RAG evaluation.",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:31.915747"
+    },
+    {
+        "query_id": 15,
+        "query": "Does the corpus mention 'Quantum RAG'?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:33.045683"
+    },
+    {
+        "query_id": 16,
+        "query": "Who won the 2024 US Election?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:34.771365"
+    },
+    {
+        "query_id": 17,
+        "query": "What is the capital of France?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:36.699888"
+    },
+    {
+        "query_id": 18,
+        "query": "Explain 'Model Collapse' in RAG.",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:37.761964"
+    },
+    {
+        "query_id": 19,
+        "query": "Is there evidence for using GraphRAG for evaluation?",
+        "answer": "ERROR: 'ResearchRAG' object has no attribute '_format_docs'",
+        "latency_seconds": 0,
+        "timestamp": "2026-02-14T21:14:39.796662"
+    }
+]

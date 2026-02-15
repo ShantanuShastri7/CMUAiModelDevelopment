@@ -1,0 +1,142 @@
+[
+    {
+        "query_id": 0,
+        "query": "What is 'Context Precision' in RAG evaluation?",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_11), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_26), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_27), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_1), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_24)",
+        "latency_seconds": 2.7,
+        "timestamp": "2026-02-14T21:17:03.981721"
+    },
+    {
+        "query_id": 1,
+        "query": "How does Ragas measure faithfulness?",
+        "answer": "Ragas measures faithfulness by assessing the information consistency of the answer against the given context, penalizing any claims made in the answer that cannot be deduced from the context (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_24).",
+        "latency_seconds": 1.53,
+        "timestamp": "2026-02-14T21:17:05.510729"
+    },
+    {
+        "query_id": 2,
+        "query": "What are the limitations of LLM-as-a-judge?",
+        "answer": "I cannot find evidence for \"LLM-as-a-judge\" in the provided documents. The documents discuss the limitations of Large Language Models (LLMs) in general, such as their inability to answer questions about events that have happened after they were trained and their struggle to memorize knowledge that is only rarely mentioned in the training corpus (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_2). However, they do not specifically mention \"LLM-as-a-judge\".",
+        "latency_seconds": 1.74,
+        "timestamp": "2026-02-14T21:17:07.250617"
+    },
+    {
+        "query_id": 3,
+        "query": "Define 'Groundness' in the context of RAG.",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_27), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_1), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_26), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_12), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_24)",
+        "latency_seconds": 1.98,
+        "timestamp": "2026-02-14T21:17:09.230861"
+    },
+    {
+        "query_id": 4,
+        "query": "What is 'Self-RAG' and how does it work?",
+        "answer": "SELF-RAG is a retrieval-augmented generation approach that enables a model to generate text with reflection tokens, allowing it to evaluate and improve its own output. The process works as follows: (1) the model determines if augmenting the continued generation with retrieved passages would be helpful and outputs a retrieval token to call a retriever model on demand, (2) it concurrently processes multiple retrieved passages, evaluating their relevance and generating corresponding task outputs, and (3) it generates critique tokens to criticize its own output and choose the best one in terms of factuality and overall quality (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_4). SELF-RAG also enables a customizable decoding algorithm to satisfy hard or soft constraints defined by reflection token predictions, allowing for flexible adjustment of retrieval frequency and customization of models' behaviors to user preferences (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_9).",
+        "latency_seconds": 1.91,
+        "timestamp": "2026-02-14T21:17:11.143208"
+    },
+    {
+        "query_id": 5,
+        "query": "How does 'Corrective RAG' improve retrieval?",
+        "answer": "I cannot find evidence for this in the provided documents. (No relevant source)",
+        "latency_seconds": 1.34,
+        "timestamp": "2026-02-14T21:17:12.479765"
+    },
+    {
+        "query_id": 6,
+        "query": "What metrics are used to evaluate retrieval quality?",
+        "answer": "The metrics used to evaluate retrieval quality include perplexity, question answering, citation precision, and recall. Additionally, metrics such as FactScore, correctness (str-em), and fluency based on MAUVE are used for specific tasks like biography generation and long-form QA (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_4), (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_35), (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_44).",
+        "latency_seconds": 1.3,
+        "timestamp": "2026-02-14T21:17:13.782758"
+    },
+    {
+        "query_id": 7,
+        "query": "Explain the concept of 'Hit Rate'.",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: None, Chunk: None)",
+        "latency_seconds": 1.53,
+        "timestamp": "2026-02-14T21:17:15.313871"
+    },
+    {
+        "query_id": 8,
+        "query": "What is the difference between sparse and dense retrieval?",
+        "answer": "I cannot find evidence for this in the provided documents. (No source available)",
+        "latency_seconds": 1.24,
+        "timestamp": "2026-02-14T21:17:16.553717"
+    },
+    {
+        "query_id": 9,
+        "query": "How does chunk size affect RAG performance?",
+        "answer": "Increasing the data size often shows upward trajectories in model performance, with significant improvements in PopQA and ASQA. However, when increasing the training data from 50k to 150k, the improvements are not as significant on Llama2-FT7B. This suggests that further expanding the training data may lead to further improvements in RAG performance (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_52).",
+        "latency_seconds": 1.45,
+        "timestamp": "2026-02-14T21:17:18.001931"
+    },
+    {
+        "query_id": 10,
+        "query": "Compare Ragas and TruLens evaluation frameworks.",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_27), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_0), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_1), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_26), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_5) \n\nNote: TruLens is not mentioned in the provided context, therefore a comparison between Ragas and TruLens cannot be made.",
+        "latency_seconds": 1.64,
+        "timestamp": "2026-02-14T21:17:19.645143"
+    },
+    {
+        "query_id": 11,
+        "query": "What are the common failure modes of RAG systems according to recent research?",
+        "answer": "According to recent research, RAG systems struggle with detecting hallucination when using standard prompting strategies (Li et al., 2023; Azaria and Mitchell, 2023). Additionally, existing models have difficulty predicting factuality using a few-shot prompting strategy (Zhang et al., 2023; Ji et al., 2023). Furthermore, ChatGPT often struggles with selecting the sentences from the context that are crucial, especially for longer contexts (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_6, 2309.15217v2_chunk_26).",
+        "latency_seconds": 6.76,
+        "timestamp": "2026-02-14T21:17:26.405161"
+    },
+    {
+        "query_id": 12,
+        "query": "How can we mitigate hallucinations in RAG?",
+        "answer": "To mitigate hallucinations in RAG, several approaches can be taken. One approach is to use a few-shot prompting strategy to predict factuality (Zhang et al., 2023) (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_6). Another approach is to link the generated responses to facts from an external knowledge base (Min et al., 2023) (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_7). Additionally, inspecting the probabilities assigned to individual tokens can help, as models are expected to be less confident in hallucinated answers than in factual ones (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_7). Furthermore, techniques like BARTScore (Yuan et al., 2021) and the method proposed by Kadavath et al. (2022) can be used to estimate factuality (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_7). Chain-of-verification is also a method that reduces hallucination in large language models (Jason Weston, 2023) (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_60).",
+        "latency_seconds": 7.07,
+        "timestamp": "2026-02-14T21:17:33.478414"
+    },
+    {
+        "query_id": 13,
+        "query": "Discuss the trade-offs between latency and accuracy in RAG.",
+        "answer": "I cannot find evidence for this in the provided documents. (No relevant SourceID, ChunkID)",
+        "latency_seconds": 7.46,
+        "timestamp": "2026-02-14T21:17:40.934402"
+    },
+    {
+        "query_id": 14,
+        "query": "Summarize the state-of-the-art in reference-free RAG evaluation.",
+        "answer": "The state-of-the-art in reference-free RAG evaluation is limited, with most evaluations relying on language modeling tasks or question answering with short extractive answers, which may not be representative of downstream performance. Current evaluation strategies, such as BERTScore, MoverScore, and BARTScore, rely on reference answers, which may not always be available. The introduction of Ragas, a framework for reference-free evaluation of RAG systems, aims to address these issues by assessing faithfulness, answer relevance, and context relevance (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_4, 2309.15217v2_chunk_11, 2309.15217v2_chunk_27).",
+        "latency_seconds": 7.06,
+        "timestamp": "2026-02-14T21:17:47.994160"
+    },
+    {
+        "query_id": 15,
+        "query": "Does the corpus mention 'Quantum RAG'?",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_4), (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_80), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_0), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_26), (Source: 2309.15217v2, Chunk: 2309.15217v2_chunk_27)",
+        "latency_seconds": 7.62,
+        "timestamp": "2026-02-14T21:17:55.614548"
+    },
+    {
+        "query_id": 16,
+        "query": "Who won the 2024 US Election?",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: None, Chunk: None)",
+        "latency_seconds": 11.64,
+        "timestamp": "2026-02-14T21:18:07.256139"
+    },
+    {
+        "query_id": 17,
+        "query": "What is the capital of France?",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: None, as the information is not present in the provided context)",
+        "latency_seconds": 8.03,
+        "timestamp": "2026-02-14T21:18:15.290137"
+    },
+    {
+        "query_id": 18,
+        "query": "Explain 'Model Collapse' in RAG.",
+        "answer": "I cannot find evidence for this in the provided documents. (No relevant source)",
+        "latency_seconds": 7.06,
+        "timestamp": "2026-02-14T21:18:22.355029"
+    },
+    {
+        "query_id": 19,
+        "query": "Is there evidence for using GraphRAG for evaluation?",
+        "answer": "I cannot find evidence for this in the provided documents.",
+        "latency_seconds": 5.48,
+        "timestamp": "2026-02-14T21:18:27.835847"
+    }
+]

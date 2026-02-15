@@ -1,42 +1,57 @@
-# CMU AI Model Development - Personal Research Portal (PRP)
+# Personal Research Portal (PRP)
 
-This repository contains the Personal Research Portal project, divided into three phases:
+## Phase 1: Prompting → RAG Framing
 
-- **Phase 1**: Prompting → RAG Framing
-- **Phase 2**: RAG Implementation
-- **Phase 3**: Research Portal Product
+_Completed._ See `report/` for artifacts.
 
-## Folder Structure
+## Phase 2: Research-Grade RAG (Current)
 
-- `data/`
-  - `raw/`: Store raw PDFs, HTML snapshots, and notes here.
-  - `processed/`: Store parsed text, chunks, and intermediate files.
-  - `data_manifest.csv`: Metadata registry for all sources.
-- `src/`
-  - `app/`: Phase 3 UI (Streamlit/Gradio).
-  - `ingest/`: Scripts for parsing and chunking.
-  - `rag/`: Retrieval and generation logic.
-  - `eval/`: Evaluation scripts and query sets.
-- `outputs/`: Generated artifacts (evidence tables, memos) and exports.
-- `logs/`: Run logs (machine-readable).
-- `report/`: Deliverable documents.
-  - `phase1_framing_brief.md`: Frame the research domain and questions.
-  - `phase1_prompt_kit.md`: Document prompts and guardrails.
-  - `phase1_evaluation_sheet.md`: Log and score Phase 1 test runs.
-  - `phase1_analysis_memo.md`: Analyze failure modes and plan for Phase 2.
+### Setup
 
-## Setup
-
-1. Install dependencies:
+1. Create a `.env` file just like `.env.example` but with your **GROQ_API_KEY**:
+   ```bash
+   GROQ_API_KEY=gsk_...
+   ```
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-2. Add your API keys (e.g., in `.env` or environment variables).
 
-## Phase 1 Checklist
+### Usage
 
-- [ ] Complete `report/phase1_framing_brief.md`
-- [ ] Add raw documents to `data/raw/` and update `data/data_manifest.csv`
-- [ ] Design prompts in `report/phase1_prompt_kit.md`
-- [ ] Run evaluation and record in `report/phase1_evaluation_sheet.md`
-- [ ] Write analysis in `report/phase1_analysis_memo.md`
+**1. Fetch Papers (Arxiv):**
+Downloads ~20 papers on "RAG evaluation" to `data/raw/` and updates manifest.
+
+```bash
+python3 src/main.py fetch
+```
+
+**2. Ingest Papers:**
+Parses PDFs, chunks them, computes embeddings (using local HuggingFace model), and stores them in ChromaDB.
+
+```bash
+python3 src/main.py ingest
+```
+
+**3. Ask a Question:**
+Retrieves context and answers using Llama3-70b (via Groq).
+
+```bash
+python3 src/main.py ask "What are the limitations of Ragas?"
+```
+
+**4. Run Evaluation:**
+Runs a set of 20 test queries and generates a report in `outputs/eval/`.
+
+```bash
+python3 src/main.py eval
+```
+
+## Folder Structure
+
+- `data/`: Raw PDFs and ChromaDB storage.
+- `src/`: Source code.
+  - `ingest/`: Fetching and Ingestion logic.
+  - `rag/`: RAG engine (Retriever + Generator).
+  - `eval/`: Evaluation scripts.
+- `outputs/`: Evaluation reports.

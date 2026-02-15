@@ -1,0 +1,142 @@
+[
+    {
+        "query_id": 0,
+        "query": "What is 'Context Precision' in RAG evaluation?",
+        "answer": "Context Precision in RAG evaluation refers to the metric that measures the proportion of relevant chunks in the context. It is a RAG-specific metric that evaluates the relevance of the retrieved context (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_76).",
+        "latency_seconds": 1.79,
+        "timestamp": "2026-02-14T21:27:21.773695"
+    },
+    {
+        "query_id": 1,
+        "query": "How does Ragas measure faithfulness?",
+        "answer": "Ragas measures faithfulness by evaluating if the answer is grounded in the given context, which is important to avoid hallucinations and ensure that the retrieved context can act as a justification for the generated answer (2309.15217v2, 2309.15217v2_chunk_12).",
+        "latency_seconds": 0.34,
+        "timestamp": "2026-02-14T21:27:22.114784"
+    },
+    {
+        "query_id": 2,
+        "query": "What are the limitations of LLM-as-a-judge?",
+        "answer": "I cannot find evidence for the limitations of LLM-as-a-judge in the provided documents. The documents mention \"Judging llm-as-a-judge with mt-bench and chatbot arena\" (Source: 2306.05685), but they do not provide information on the limitations of LLM-as-a-judge. (Source: 2306.05685)",
+        "latency_seconds": 0.48,
+        "timestamp": "2026-02-14T21:27:22.592980"
+    },
+    {
+        "query_id": 3,
+        "query": "Define 'Groundness' in the context of RAG.",
+        "answer": "In the context of RAG, 'groundedness' evaluates the extent to which the generated responses are adequately substantiated by the retrieved evidence (2601.05264v1, 2601.05264v1_chunk_77).",
+        "latency_seconds": 0.39,
+        "timestamp": "2026-02-14T21:27:22.983096"
+    },
+    {
+        "query_id": 4,
+        "query": "What is 'Self-RAG' and how does it work?",
+        "answer": "Self-RAG is a retrieval-augmented generation model that determines if augmenting the continued generation with retrieved passages would be helpful, given an input prompt and preceding generations. It works by first outputting a retrieval token that calls a retriever model on demand (Step 1), then concurrently processing multiple retrieved passages to evaluate their relevance and generate corresponding task outputs (Step 2), and finally generating critique tokens to criticize its own output and choose the best one in terms of factuality and overall quality (Step 3) (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_4).",
+        "latency_seconds": 0.57,
+        "timestamp": "2026-02-14T21:27:23.551536"
+    },
+    {
+        "query_id": 5,
+        "query": "How does 'Corrective RAG' improve retrieval?",
+        "answer": "I cannot find evidence for this in the provided documents. (No source available)",
+        "latency_seconds": 0.25,
+        "timestamp": "2026-02-14T21:27:23.801648"
+    },
+    {
+        "query_id": 6,
+        "query": "What metrics are used to evaluate retrieval quality?",
+        "answer": "The metrics used to evaluate retrieval quality include recall@15, Precision@k, and Recall@k (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_75). Additionally, other metrics such as NDCG and MAP are also used to assess the effectiveness of the retrieval process (Source: 2504.19754v1, Chunk: 2504.19754v1_chunk_30).",
+        "latency_seconds": 0.51,
+        "timestamp": "2026-02-14T21:27:24.312608"
+    },
+    {
+        "query_id": 7,
+        "query": "Explain the concept of 'Hit Rate'.",
+        "answer": "I cannot find evidence for this in the provided documents.",
+        "latency_seconds": 0.27,
+        "timestamp": "2026-02-14T21:27:24.586805"
+    },
+    {
+        "query_id": 8,
+        "query": "What is the difference between sparse and dense retrieval?",
+        "answer": "The main difference between sparse and dense retrieval is their performance in terms of indexing and querying. Dense vector indexing has rapid indexing capability but is offset by relatively sluggish querying performance, whereas sparse vector indexing has a slower indexing process but offers expeditious querying advantages. Additionally, there is a stark contrast in storage requirements, with sparse vector indexing requiring significantly less storage space compared to dense vector indexing. For example, the sparse vector index of the HotPotQA corpus occupied 10.5GB, whereas the dense vector equivalent required 50GB (Source: 2404.07220v2, Chunk: 2404.07220v2_chunk_25).",
+        "latency_seconds": 0.63,
+        "timestamp": "2026-02-14T21:27:25.221521"
+    },
+    {
+        "query_id": 9,
+        "query": "How does chunk size affect RAG performance?",
+        "answer": "I cannot find evidence for this in the provided documents. (No relevant source)",
+        "latency_seconds": 0.24,
+        "timestamp": "2026-02-14T21:27:25.463955"
+    },
+    {
+        "query_id": 10,
+        "query": "Compare Ragas and TruLens evaluation frameworks.",
+        "answer": "RAGAS and TruLens are two evaluation frameworks used for assessing Retrieval Augmented Generation (RAG) systems. According to Table 7.1, RAGAS has an end-to-end focus, a high level of automation, and is capable of reference-free evaluation, with moderate enterprise integration (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_73). On the other hand, TruLens has a focus on hallucination detection, a medium level of automation, and is also capable of reference-free evaluation, with high enterprise integration (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_73). This suggests that while both frameworks have some similarities, RAGAS has a broader focus and higher automation, whereas TruLens is more specialized in detecting hallucinations. (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_73)",
+        "latency_seconds": 6.94,
+        "timestamp": "2026-02-14T21:27:32.401288"
+    },
+    {
+        "query_id": 11,
+        "query": "What are the common failure modes of RAG systems according to recent research?",
+        "answer": "According to recent research, common failure modes of RAG systems include issues that can be addressed by understanding failure modes and mitigation strategies in RAG pipelines (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_192), and seven ways a RAG system could be failing, along with strategies to fix them (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_188). However, the context does not provide a comprehensive list of common failure modes. (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_192)",
+        "latency_seconds": 7.28,
+        "timestamp": "2026-02-14T21:27:39.677285"
+    },
+    {
+        "query_id": 12,
+        "query": "How can we mitigate hallucinations in RAG?",
+        "answer": "To mitigate hallucinations in RAG, several strategies can be employed. One approach is to use a RAG strategy, which grounds the LLM's responses in external knowledge, allowing the model to search its knowledge base for similar questions it failed to answer correctly in prior evaluations (2409.11353v3, Chunk: 2409.11353v3_chunk_18). Another approach is to use parameter-efficient fine-tuning (PEFT) methods, such as LoRA, to fine-tune LLMs for better hallucination detection performance (2409.11353v3, Chunk: 2409.11353v3_chunk_18). Additionally, using In-Context Learning (ICL) strategy can also improve the model's ability to detect hallucinations, although its effect may be limited for some models (2409.11353v3, Chunk: 2409.11353v3_chunk_21). Furthermore, few-shot prompting strategies can be used to predict factuality and detect hallucinations (2309.15217v2, Chunk: 2309.15217v2_chunk_6). \n\nIt's also important to note that the choice of mitigation strategy may depend on the specific model and task, and a system that allows for the application of different mitigation strategies tailored to the specific model and task can enable the models to achieve optimal performance in detecting or producing less hallucination (2409.11353v3, Chunk: 2409.11353v3_chunk_21).",
+        "latency_seconds": 7.4,
+        "timestamp": "2026-02-14T21:27:47.077487"
+    },
+    {
+        "query_id": 13,
+        "query": "Discuss the trade-offs between latency and accuracy in RAG.",
+        "answer": "I cannot find evidence for this in the provided documents. (No relevant SourceID, ChunkID available)",
+        "latency_seconds": 6.74,
+        "timestamp": "2026-02-14T21:27:53.818663"
+    },
+    {
+        "query_id": 14,
+        "query": "Summarize the state-of-the-art in reference-free RAG evaluation.",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_14), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_81), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_130), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_183), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_188)",
+        "latency_seconds": 6.13,
+        "timestamp": "2026-02-14T21:27:59.949777"
+    },
+    {
+        "query_id": 15,
+        "query": "Does the corpus mention 'Quantum RAG'?",
+        "answer": "I cannot find evidence for this in the provided documents. (Source: 2504.19754v1, Chunk: 2504.19754v1_chunk_10), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_14), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_187), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_15), (Source: 2407.12036v2, Chunk: 2407.12036v2_chunk_16)",
+        "latency_seconds": 4.8,
+        "timestamp": "2026-02-14T21:28:04.746441"
+    },
+    {
+        "query_id": 16,
+        "query": "Who won the 2024 US Election?",
+        "answer": "I cannot find evidence for this in the provided documents.",
+        "latency_seconds": 4.58,
+        "timestamp": "2026-02-14T21:28:09.330295"
+    },
+    {
+        "query_id": 17,
+        "query": "What is the capital of France?",
+        "answer": "The capital of France is Paris (Source: 2409.11353v3, Chunk: 2409.11353v3_chunk_66)",
+        "latency_seconds": 6.05,
+        "timestamp": "2026-02-14T21:28:15.383824"
+    },
+    {
+        "query_id": 18,
+        "query": "Explain 'Model Collapse' in RAG.",
+        "answer": "I cannot find evidence for this in the provided documents. (No relevant source found)",
+        "latency_seconds": 6.9,
+        "timestamp": "2026-02-14T21:28:22.285193"
+    },
+    {
+        "query_id": 19,
+        "query": "Is there evidence for using GraphRAG for evaluation?",
+        "answer": "There is no direct evidence in the provided context for using GraphRAG specifically for evaluation. However, there are mentions of evaluation in the context of Retrieval-Augmented Generation (RAG) and related techniques, such as AutoRAG, ReAct, and Ragas, which are related to GraphRAG (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_165), (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_176).",
+        "latency_seconds": 7.35,
+        "timestamp": "2026-02-14T21:28:29.638293"
+    }
+]
