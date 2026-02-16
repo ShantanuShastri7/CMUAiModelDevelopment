@@ -8,7 +8,7 @@ _Completed._ See `report/` for artifacts.
 
 ### Setup
 
-1. Create a `.env` file just like `.env.example` but with your **GROQ_API_KEY**:
+1. Create a `.env` file with your **GROQ_API_KEY**:
    ```bash
    GROQ_API_KEY=gsk_...
    ```
