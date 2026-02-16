@@ -11,3 +11,5 @@ langchain-chroma
 arxiv
 langchain-groq
 flashrank
+ragas
+datasets
