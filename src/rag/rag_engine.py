@@ -99,7 +99,7 @@ class ResearchRAG:
             
         return reranked_docs
 
-    def answer(self, query):
+    def answer(self, query, return_docs=False):
         """Generates an answer using the RAG pipeline."""
         start_timestamp = datetime.now().isoformat()
         
@@ -115,7 +115,38 @@ class ResearchRAG:
         # Log interaction
         self._log_interaction(query, docs, answer, start_timestamp)
         
+        if return_docs:
+            return answer, docs
         return answer
+
+    def generate_synthesis_memo(self, query, answer, docs):
+        """Generates a Synthesis Memo artifact based on the query, answer, and retrieved documents."""
+        memo_template = """You are a research assistant tasked with writing a Synthesis Memo.
+        
+        Write an 800-1200 word Synthesis Memo addressing the following research query based on the provided context.
+        Use inline citations in the format (SourceID, ChunkID).
+        Include a 'References' section at the end listing the unique sources used.
+        If the evidence is conflicting or insufficient, explicitly state so.
+        Format the output in clear Markdown.
+        
+        Query: {query}
+        Previous Brief Answer: {answer}
+        
+        Context evidence:
+        {context}
+        
+        Synthesis Memo Output:"""
+        
+        memo_prompt = ChatPromptTemplate.from_template(memo_template)
+        formatted_context = self._format_docs(docs)
+        
+        chain = memo_prompt | self.llm | StrOutputParser()
+        memo = chain.invoke({
+            "query": query,
+            "answer": answer,
+            "context": formatted_context
+        })
+        return memo
 
     def _log_interaction(self, query, docs, answer, timestamp):
         log_entry = {

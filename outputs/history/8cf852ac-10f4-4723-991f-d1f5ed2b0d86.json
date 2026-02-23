@@ -1,0 +1,37 @@
+[
+    {
+        "role": "user",
+        "content": "What is RAGAS"
+    },
+    {
+        "role": "assistant",
+        "content": "RAGAS is a framework that introduces exhaustive quality assessment metrics for evaluating the quality of generation in RAG systems, facilitating the development of reliable, efficient, comprehensive, and hallucination-free RAG systems (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_130).",
+        "sources": [
+            {
+                "source_id": "2407.12036v2",
+                "chunk_id": "2407.12036v2_chunk_16",
+                "text": "models can generate more relevant and precise responses. RAG involves a retriever component that encodes user\nqueries and searches an external data source for relevant information. This augmented query is then processed by\nthe LLM to produce a more accurate completion. For example, in legal applications, RAG can enhance discovery\n3"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_205",
+                "text": "nd-simple-lookups-building-enterprise-grade-rag-systems/\n[171] \u201cRAGAS,\u201d Klu.ai, Jun. 28, 2024. [Online]. Available: https://klu.\nai/glossary/ragas\n[172] \u201cUnderstanding RAGAS: A Comprehensive Framework for RAG Sys-\ntem Evaluation,\u201d Dev.to, Feb.\n1, 2025.\n[Online].\nAvailable:\nhttps:\n80"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_130",
+                "text": "RAG,Reward framework introduces exhaustive quality assessment metrics\nthat are intended to facilitate the development of RAG systems that are reli-\nable, efficient, comprehensive, and hallucination-free [178][184]. This frame-\nwork establishes four critical metrics for evaluating the quality of generation\nand creates automated annotation algorithms that utilize multiple language\nmodels to produce outputs in a variety of RAG scenarios [178].\n54"
+            },
+            {
+                "source_id": "2404.07220v2",
+                "chunk_id": "2404.07220v2_chunk_2",
+                "text": "RAG system relies fundamentally on two components: the\nRetriever (R) and the Generator (G), the latter representing\nthe size and type of LLM.\nThe language model can easily craft sentences, but it might\nnot always have all the facts. This is where the Retriever (R)\nsteps in, quickly sifting through vast amounts of documents\nto find relevant information that can be used to inform and\nenrich the language model's output. Think of the retriever\nas a researcher part of the AI, which feeds the contextually\ngrounded text to generate knowledgeable answers to Generator\n(G). Without the retriever, RAG would be like a well-spoken\nindividual who delivers irrelevant information.\nII. RELATED WORK\nSearch has been a focal point of research in information\nretrieval, with numerous studies exploring various methodolo-\ngies. Historically, the BM25 (Best Match) algorithm, which\nuses similarity search, has been a cornerstone in this field,\nas explored by Robertson and Zaragoza (2009). [2]. BM25"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_183",
+                "text": "Available: https://proceedings.neurips.cc/paper_files/paper/202\n4/file/27245589131d17368cccdfa990cbf16e-Paper-Datasets_and_Be\nnchmarks_Track.pdf\n[96] \u201cEvaluating RAG Applications with RAGAs,\u201d LangSmith Documenta-\ntion. [Online]. Available: https://docs.smith.langchain.com/old/coo\nkbook/testing-examples/ragas\n[97] \u201cEvaluating RAG Systems: A Comprehensive Approach to Assessing\nRetrieval-Augmented Generation,\u201d LinkedIn, May 2024. [Online]. Available:\nhttps://www.linkedin.com/pulse/evaluating-rag-systems-compreh\nensive-approach-assessing-kakkar-esm9c\n[98] \u201cEvaluate RAG responses with Amazon Bedrock, LlamaIndex and RA-\nGAS,\u201d AWS Machine Learning Blog, Mar.\n2025.\n[Online].\nAvailable:\nhttps://aws.amazon.com/blogs/machine-learning/evaluate-rag\n-responses-with-amazon-bedrock-llamaindex-and-ragas/\n[99] \u201cEvaluating - LlamaIndex,\u201d LlamaIndex Documentation.\n[Online].\nAvailable: https://docs.llamaindex.ai/en/stable/module_guides/e\nvaluating/\n[100] \u201cHotpotQA Dataset,\u201d Hugging Face.\n[Online]."
+            }
+        ]
+    }
+]

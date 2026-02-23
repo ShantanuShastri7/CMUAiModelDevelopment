@@ -47,6 +47,22 @@ Runs a set of 20 test queries and generates a report in `outputs/eval/`.
 python3 src/main.py eval
 ```
 
+## Phase 3: Personal Research Portal UI
+
+Launch the Streamlit web application to access the full Personal Research Portal product:
+
+```bash
+python3 src/main.py ui
+```
+
+This will open a web interface where you can:
+
+- Explore your research queries and retrieve contexts with citations.
+- View old chat threads and execution history.
+- Generate specialized **Synthesis Memos** as artifacts.
+- Export your generated artifacts and answers.
+- View Evaluation Reports natively in the sidebar.
+
 ## Folder Structure
 
 - `data/`: Raw PDFs and ChromaDB storage.

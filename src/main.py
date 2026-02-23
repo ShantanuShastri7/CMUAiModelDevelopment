@@ -1,4 +1,9 @@
 import argparse
+import sys
+import os
+
+# Ensure the root directory is in the Python path so 'src' can be resolved
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.ingest.ingestor import Ingestor
 from src.ingest.arxiv_fetcher import ArxivFetcher
 from dotenv import load_dotenv
@@ -32,6 +37,9 @@ def main():
     eval_parser = subparsers.add_parser("eval", help="Run evaluation suite")
     eval_parser.add_argument("--no-rerank", action="store_true", help="Disable reranker")
 
+    # UI Command
+    ui_parser = subparsers.add_parser("ui", help="Launch the Personal Research Portal frontend UI")
+
     args = parser.parse_args()
 
     if args.command == "fetch":
@@ -57,6 +65,11 @@ def main():
         except Exception as e:
             print(f"Error: {e}")
             
+    elif args.command == "ui":
+        import os
+        print("Launching Personal Research Portal...")
+        os.system("streamlit run src/app/app.py")
+        
     else:
         parser.print_help()
 

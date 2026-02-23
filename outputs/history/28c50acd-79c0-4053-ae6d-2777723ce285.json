@@ -1,0 +1,37 @@
+[
+    {
+        "role": "user",
+        "content": "What is the main idea behind RAGAS"
+    },
+    {
+        "role": "assistant",
+        "content": "I cannot find evidence for this in the provided documents.",
+        "sources": [
+            {
+                "source_id": "2512.24268v1",
+                "chunk_id": "2512.24268v1_chunk_23",
+                "text": "of individual poisoned fragments. Since the poisons are not optimized to dominate the mean of multiple\nembeddings, their effectiveness naturally decreases. Designing adaptive poisons to counteract this is difficult:\nit would require crafting embeddings with unusually large norms, which is hard to achieve in practice and\ncan be mitigated by anomaly detection in embedding space. This distinction between the naive combination\nmethod and RAGPart is illustrated with a toy example using N = 3 and k = 2 in Figure 2.\n3.2. Defense: RAGMask\nThe idea of RAGMask takes inspiration from perturbation-based defenses. The idea behind perturbation-based\ndefenses Yang et al. (2021) is to analyze the behavior of a given sample in the presence of perturbations and\nmake decisions accordingly. In the case of RAG, if the addition of a poison to a document makes it retrievable,\nthen masking or occluding that token should cause a substantial drop in the similarity score between the"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_152",
+                "text": "gration, and multimodal processing have evolved from research concepts to\npractical applications [222][223][224].\n10.2\nPractitioners' Strategic Implications\nFor Technology Leaders: RAG is a strategic technology investment that has\na sustainable competitive advantage potential and a demonstrated business\nimpact [225][216]. The technology's modular architecture facilitates incre-\nmental deployment and scalability, thereby minimizing implementation risk\nand offering transparent value demonstration pathways [226]. Organizations\nthat implement systematic design patterns accomplish 45% faster deploy-\nment cycles than those that employ ad-hoc approaches, thereby establish-\ning RAG engineering as a mature discipline with established best practices\n[227][228].\nFor Engineering Teams: The progression toward Modular RAG architec-\ntures offer adaptable frameworks for satisfying a wide range of enterprise\nneeds while preserving system coherence [204][210]. Multi-agent RAG sys-"
+            },
+            {
+                "source_id": "2407.12036v2",
+                "chunk_id": "2407.12036v2_chunk_16",
+                "text": "models can generate more relevant and precise responses. RAG involves a retriever component that encodes user\nqueries and searches an external data source for relevant information. This augmented query is then processed by\nthe LLM to produce a more accurate completion. For example, in legal applications, RAG can enhance discovery\n3"
+            },
+            {
+                "source_id": "2404.07220v2",
+                "chunk_id": "2404.07220v2_chunk_2",
+                "text": "RAG system relies fundamentally on two components: the\nRetriever (R) and the Generator (G), the latter representing\nthe size and type of LLM.\nThe language model can easily craft sentences, but it might\nnot always have all the facts. This is where the Retriever (R)\nsteps in, quickly sifting through vast amounts of documents\nto find relevant information that can be used to inform and\nenrich the language model's output. Think of the retriever\nas a researcher part of the AI, which feeds the contextually\ngrounded text to generate knowledgeable answers to Generator\n(G). Without the retriever, RAG would be like a well-spoken\nindividual who delivers irrelevant information.\nII. RELATED WORK\nSearch has been a focal point of research in information\nretrieval, with numerous studies exploring various methodolo-\ngies. Historically, the BM25 (Best Match) algorithm, which\nuses similarity search, has been a cornerstone in this field,\nas explored by Robertson and Zaragoza (2009). [2]. BM25"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_147",
+                "text": "vides autonomous systems with the ability to perpetually enhance their\ncapabilities through feedback and experience [200].\nIn the future, RAG\nsystems will progress toward the incorporation of knowledge that is mul-\ntimodal, real-time, and autonomous, surpassing the capabilities of simple\n60"
+            }
+        ]
+    }
+]
