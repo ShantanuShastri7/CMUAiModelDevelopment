@@ -10,6 +10,31 @@ from langchain_core.documents import Document
 from flashrank import Ranker, RerankRequest
 import json
 from datetime import datetime
+import time
+from functools import wraps
+
+def retry_with_backoff(retries=5, backoff_in_seconds=2):
+    """
+    Decorator to retry an API call with exponential backoff.
+    Useful for handling API rate limits (e.g., HTTP 429) and transient errors.
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            x = 0
+            while True:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if x == retries:
+                        print(f"Failed after {retries} retries.")
+                        raise e
+                    sleep_time = backoff_in_seconds * (2 ** x)
+                    print(f"API Error: {e}. Retrying in {sleep_time} seconds (Attempt {x+1}/{retries})...")
+                    time.sleep(sleep_time)
+                    x += 1
+        return wrapper
+    return decorator
 
 class ResearchRAG:
     def __init__(self, persist_directory="./data/chroma_db", use_reranking=True):
@@ -99,6 +124,7 @@ class ResearchRAG:
             
         return reranked_docs
 
+    @retry_with_backoff(retries=5, backoff_in_seconds=2)
     def answer(self, query, return_docs=False):
         """Generates an answer using the RAG pipeline."""
         start_timestamp = datetime.now().isoformat()
@@ -119,6 +145,7 @@ class ResearchRAG:
             return answer, docs
         return answer
 
+    @retry_with_backoff(retries=3, backoff_in_seconds=3)
     def generate_synthesis_memo(self, query, answer, docs):
         """Generates a Synthesis Memo artifact based on the query, answer, and retrieved documents."""
         memo_template = """You are a research assistant tasked with writing a Synthesis Memo.
@@ -147,6 +174,83 @@ class ResearchRAG:
             "context": formatted_context
         })
         return memo
+
+    @retry_with_backoff(retries=3, backoff_in_seconds=3)
+    def extract_knowledge_graph(self, query, docs):
+        """Extracts entities and relationships for a knowledge graph based on retrieved documents."""
+        prompt_template = """You are an advanced text analysis system tasked with building a knowledge graph.
+        
+        Analyze the following retrieved context documents against the user query. Extract key concepts/entities and the relationships between them.
+        Ensure you include the 'SourceID' in the extraction when an entity is derived from a specific document.
+        
+        Output your findings STRICTLY as a JSON object with two lists: 'nodes' and 'edges'.
+        - 'nodes' should have objects with 'id' (name of concept), 'label' (name of concept), and 'group' (e.g., 'Concept', 'Source', 'Metric').
+        - 'edges' should have objects with 'source' (node id), 'target' (node id), and 'label' (describing the relationship).
+        
+        Do not include any other text except the JSON object.
+        
+        Query: {query}
+        
+        Context:
+        {context}
+        """
+        
+        formatted_context = self._format_docs(docs)
+        prompt = ChatPromptTemplate.from_template(prompt_template)
+        
+        # We enforce JSON output strictly
+        chain = prompt | self.llm | StrOutputParser()
+        raw_output = chain.invoke({"query": query, "context": formatted_context})
+        
+        try:
+            # Clean up potential markdown formatting from LLM
+            if "```json" in raw_output:
+                raw_output = raw_output.split("```json")[1].split("```")[0].strip()
+            elif "```" in raw_output:
+                raw_output = raw_output.split("```")[1].strip()
+            return json.loads(raw_output)
+        except Exception as e:
+            print(f"Failed to parse Knowledge Graph JSON: {e}")
+            return {"nodes": [], "edges": []}
+
+    @retry_with_backoff(retries=3, backoff_in_seconds=3)
+    def find_evidence_gaps(self, query, answer, docs):
+        """Identifies missing information from the answer and suggests new search queries."""
+        prompt_template = """You are a critical research assistant evaluating a provided answer against its source evidence.
+        
+        Read the User Query, the final Answer, and the Provided Context. 
+        Identify what crucial aspects of the query remain unanswered or lack sufficient evidence in the context.
+        Then, suggest 2 or 3 highly specific, distinct follow-up search queries that could help retrieve the missing evidence.
+        
+        Output your findings STRICTLY as a JSON object with two keys:
+        - 'missing_evidence': A short string summarizing what is missing or weak.
+        - 'next_queries': A list of strings containing exactly 2 or 3 suggested search queries.
+        
+        Do not include any other text except the JSON object.
+        
+        Query: {query}
+        Answer: {answer}
+        
+        Context:
+        {context}
+        """
+        
+        formatted_context = self._format_docs(docs)
+        prompt = ChatPromptTemplate.from_template(prompt_template)
+        
+        chain = prompt | self.llm | StrOutputParser()
+        raw_output = chain.invoke({"query": query, "answer": answer, "context": formatted_context})
+        
+        try:
+             # Clean up potential markdown formatting from LLM
+            if "```json" in raw_output:
+                raw_output = raw_output.split("```json")[1].split("```")[0].strip()
+            elif "```" in raw_output:
+                raw_output = raw_output.split("```")[1].strip()
+            return json.loads(raw_output)
+        except Exception as e:
+            print(f"Failed to parse Gap Finder JSON: {e}")
+            return {"missing_evidence": "Failed to extract missing evidence.", "next_queries": []}
 
     def _log_interaction(self, query, docs, answer, timestamp):
         log_entry = {

@@ -1,0 +1,37 @@
+[
+    {
+        "role": "user",
+        "content": "What are the main failure modes of RAG?"
+    },
+    {
+        "role": "assistant",
+        "content": "The main failure modes of RAG systems include retrieval failures, which can manifest during query processing, document matching, or result ranking phases (135, 136). Additionally, other failure modes such as query decomposition errors can occur when the initial user question is not broken down into effective, specific sub-queries (2510.22344v1, Chunk: 2510.22344v1_chunk_156). According to Table 8.4, other failure modes include missing content and poor ranking (2601.05264v1, Chunk: 2601.05264v1_chunk_98). \n\n(132, 133, 134, 135, 136, 2601.05264v1, Chunk: 2601.05264v1_chunk_98), (2510.22344v1, Chunk: 2510.22344v1_chunk_156)",
+        "sources": [
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_98",
+                "text": "strategies dynamically modify the frequency of updates in accordance with\nthe volatility of information and the patterns of user access [132].\n7.2\nAnti-Patterns: Common Failure Modes and Mitigation\nStrategies\nRAG systems demonstrate recurring failure patterns that have a substan-\ntial effect on user confidence, reliability, and performance [133]. Proactive\nprevention and early detection of system degradation are made possible by\ncomprehending these anti-patterns [134].\n7.2.1\nRetrieval Failure Modes\nThe most prevalent cause of RAG system degradation is retrieval failures,\nwhich are evident in a variety of ways at different phases of the retrieval\npipeline [135].\nThese defects may manifest during the query processing,\ndocument matching, or result ranking phases [136].\nTable 8.4: Retrieval Failure Mode Classification\nFailure Mode\nFrequency\nImpact\nSeverity\nDetection\nDifficulty\nMitigation\nComplexity\nMissing Content\nHigh\nHigh\nLow\nMedium\nPoor Ranking\nVery\nHigh\nMedium\nMedium\nMedium\nContext"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_91",
+                "text": "els must operate in tandem to provide contextually pertinent, precise re-\nsponses [115]. Real-world deployments have resulted in the development of\nengineering best practices, which offer teams systematic guidance as they\ndevelop production-ready systems [116]. In contrast, organizations repeat-\nedly confront systematic engineering errors during RAG implementation,\nwhich are represented by common failure modes and anti-patterns [117].\n7.1\nDesign Best Practices: Foundational Engineering Pat-\nterns\nRAG implementations that are successful adhere to established engineer-\ning patterns that address fundamental challenges in operational monitoring,\nsystem resilience, retrieval quality, and document processing [118]. Current\nbest practices in RAG system engineering are represented by these pat-\nterns, which have been validated across multiple production environments\n[119]. Cloud guidance on choosing RAG options highlights trade-offs among"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_191",
+                "text": "[121] \u201cEnhancing Language Models with RAG: Best Practices and Bench-\nmarks,\u201d MarkTechPost, Jul. 6, 2024. [Online]. Available: https://www.ma\nrktechpost.com/2024/07/06/enhancing-language-models-with-rag-b\nest-practices-and-benchmarks/\n[122] \u201cRetrieval-augmented generation (RAG) failure modes and how to fix\nthem,\u201d Snorkel AI, Feb. 5, 2025. [Online]. Available: https://snorkel.ai\n/blog/retrieval-augmented-generation-rag-failure-modes-and-how\n-to-fix-them/\n[123] S. Barnett et al., \u201cSeven Failure Points When Engineering a Retrieval\nAugmented Generation System,\u201d arXiv preprint arXiv:2401.05856, Jan. 11,\n2024. [Online]. Available: https://arxiv.org/abs/2401.05856\n[124] \u201cSeven Ways Your RAG System Could be Failing and How to Fix\nThem,\u201d Label Studio, Mar. 19, 2025. [Online]. Available: https://labels\ntud.io/blog/seven-ways-your-rag-system-could-be-failing-and-h\now-to-fix-them/\n[125] \u201cUnderstanding Failures and Mitigation Strategies in RAG Pipelines,\u201d"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_192",
+                "text": "tud.io/blog/seven-ways-your-rag-system-could-be-failing-and-h\now-to-fix-them/\n[125] \u201cUnderstanding Failures and Mitigation Strategies in RAG Pipelines,\u201d\nDeconvolute AI, Jun. 14, 2024. [Online]. Available: https://deconvolut\neai.com/blog/rag/failure-modes\n[126] I. S. Singh et al., \u201cChunkRAG: A Novel LLM-Chunk Filtering Method\nfor RAG Systems,\u201d arXiv preprint arXiv:2410.19572, 2024. [Online]. Avail-\nable: https://arxiv.org/html/2410.19572v5\n[127] \u201cRAG Anti-Patterns with Skylar Payne,\u201d Jason Liu, Jun. 11, 2025.\n[Online]. Available: https://jxnl.co/writing/2025/06/11/rag-anti-p\natterns-with-skylar-payne/\n[128]\n\u201cRetrieval\nAugmented\nGeneration\nV:\nScalability\nand\nFlexi-\nbility,\u201d\nYouTube,\nDec.\n24,\n2024.\n[Online].\nAvailable:\nhttps:\n//www.youtube.com/watch?v=sSy4zBPGCIk\n[129] \u201cBest Practices in RAG Evaluation: A Comprehensive Guide,\u201d Qdrant,\nNov. 24, 2024. [Online]. Available: https://qdrant.tech/blog/rag-eva\nluation-guide/\n[130] \u201cOptimizing RAG Indexing Strategy: Multi-Vector Indexing and Par-"
+            },
+            {
+                "source_id": "2510.22344v1",
+                "chunk_id": "2510.22344v1_chunk_156",
+                "text": "cause analysis on a failed query-answer pair from an advanced,\niterative RAG system.\n**CONTEXT:** The system has already produced an answer that was\ngraded as incorrect. You have been given the complete execution\ntrace for this failed sample. Your goal is to identify the single,\nprimary point of failure within the RAG pipeline.\n**FAILURE CATEGORIES:**\nYou must classify the failure into one of the following six\ncategories. Read these definitions carefully.\n1. **Query Decomposition Error:** The initial user question was\nnot broken down into effective, specific sub-queries. The\nsub-queries were irrelevant, missed key aspects of the original\nquestion, or sent the retrieval process in the wrong direction\nfrom the very beginning.\n2. **Retrieval Failure:** The retriever, despite having\nwell-formed sub-queries, failed to find and return the relevant\ndocuments from the knowledge base. The correct information was\nsimply not present in the `[All Retrieved Documents (Unfiltered)]`\nset."
+            }
+        ]
+    }
+]

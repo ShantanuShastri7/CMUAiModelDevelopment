@@ -40,24 +40,36 @@ class ArxivFetcher:
             filepath = os.path.join(self.data_dir, filename)
             
             print(f"Downloading: {title}")
-            try:
-                result.download_pdf(dirpath=self.data_dir, filename=filename)
-                
-                new_entries.append({
-                    "source_id": source_id,
-                    "title": title,
-                    "authors": ", ".join([a.name for a in result.authors]),
-                    "year": result.published.year,
-                    "source_type": "Paper",
-                    "venue": "Arxiv",
-                    "url_or_doi": result.entry_id,
-                    "raw_path": filepath,
-                    "processed_path": "",
-                    "tags": "RAG, Evaluation, Automated",
-                    "relevance_note": "Fetched from Arxiv based on query."
-                })
-            except Exception as e:
-                print(f"Failed to download {title}: {e}")
+            
+            # Explicit rate limiting for Arxiv API
+            import time
+            time.sleep(2) 
+            
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    result.download_pdf(dirpath=self.data_dir, filename=filename)
+                    
+                    new_entries.append({
+                        "source_id": source_id,
+                        "title": title,
+                        "authors": ", ".join([a.name for a in result.authors]),
+                        "year": result.published.year,
+                        "source_type": "Paper",
+                        "venue": "Arxiv",
+                        "url_or_doi": result.entry_id,
+                        "raw_path": filepath,
+                        "processed_path": "",
+                        "tags": "RAG, Evaluation, Automated",
+                        "relevance_note": "Fetched from Arxiv based on query."
+                    })
+                    break # Success, break out of retry loop
+                except Exception as e:
+                    if attempt < max_retries - 1:
+                        print(f"Failed to download {title}, retrying in {2**(attempt+1)}s: {e}")
+                        time.sleep(2**(attempt+1))
+                    else:
+                        print(f"Failed to download {title} after {max_retries} attempts: {e}")
 
         if new_entries:
             new_df = pd.DataFrame(new_entries)

@@ -15,3 +15,5 @@ ragas
 datasets
 
 streamlit
+
+streamlit-agraph

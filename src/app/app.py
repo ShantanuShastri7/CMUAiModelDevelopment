@@ -9,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 from src.rag.rag_engine import ResearchRAG
 from src.eval.evaluator import Evaluator
+from streamlit_agraph import agraph, Node, Edge, Config
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -37,6 +38,10 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "generated_memo" not in st.session_state:
     st.session_state.generated_memo = None
+if "kg_state" not in st.session_state:
+    st.session_state.kg_state = {} # Map of message index to graph data
+if "gap_state" not in st.session_state:
+    st.session_state.gap_state = {} # Map of message index to gap data
 
 # ---- Helper Functions ----
 def save_thread():
@@ -59,6 +64,8 @@ def new_thread():
     st.session_state.current_thread_id = str(uuid.uuid4())
     st.session_state.chat_history = []
     st.session_state.generated_memo = None
+    st.session_state.kg_state = {}
+    st.session_state.gap_state = {}
     st.rerun()
 
 def get_latest_eval_report():
@@ -94,15 +101,63 @@ if page == "Research Assistant":
     st.title("📚 Personal Research Portal")
     
     # Display chat history
-    for msg in st.session_state.chat_history:
+    for i, msg in enumerate(st.session_state.chat_history):
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
             if msg["role"] == "assistant" and "sources" in msg:
+                # 1. Expandable Evidence
                 with st.expander("View Retrieved Evidence"):
                     for s in msg["sources"]:
                         st.markdown(f"**Source:** {s['source_id']} | **Chunk:** {s['chunk_id']}")
                         st.markdown(f"> {s['text']}")
                         st.markdown("---")
+                
+                # 2. Knowledge Graph View
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🕸️ Generate Knowledge Graph", key=f"kg_btn_{i}"):
+                        with st.spinner("Extracting Knowledge Graph..."):
+                            from langchain_core.documents import Document
+                            docs = [Document(page_content=s["text"], metadata={"source_id": s["source_id"], "chunk_id": s["chunk_id"]}) for s in msg["sources"]]
+                            # Get query from previous user message
+                            q = st.session_state.chat_history[i-1]["content"] if i > 0 else "Research Topic"
+                            graph_data = rag.extract_knowledge_graph(q, docs)
+                            st.session_state.kg_state[i] = graph_data
+                
+                with col2:
+                    if st.button("🔍 Find Evidence Gaps", key=f"gap_btn_{i}"):
+                        with st.spinner("Analyzing gaps in evidence..."):
+                            from langchain_core.documents import Document
+                            docs = [Document(page_content=s["text"]) for s in msg["sources"]]
+                            q = st.session_state.chat_history[i-1]["content"] if i > 0 else ""
+                            gap_data = rag.find_evidence_gaps(q, msg["content"], docs)
+                            st.session_state.gap_state[i] = gap_data
+
+                # Display KG if generated for this message
+                if i in st.session_state.kg_state:
+                    st.markdown("#### Knowledge Graph")
+                    nodes = []
+                    edges = []
+                    kg = st.session_state.kg_state[i]
+                    for n in kg.get("nodes", []):
+                        nodes.append(Node(id=n["id"], label=n["label"], size=25))
+                    for e in kg.get("edges", []):
+                        edges.append(Edge(source=e["source"], target=e["target"], label=e.get("label", "")))
+                    
+                    config = Config(width=700, height=400, directed=True, nodeHighlightBehavior=True, highlightColor="#F7A7A6", collapsible=True)
+                    if nodes and edges:
+                        agraph(nodes=nodes, edges=edges, config=config)
+                    else:
+                        st.info("No clear entities/relationships found to graph.")
+                        
+                # Display Gaps if generated for this message
+                if i in st.session_state.gap_state:
+                    gaps = st.session_state.gap_state[i]
+                    st.warning(f"**Missing Evidence:** {gaps.get('missing_evidence', 'None identified.')}")
+                    if gaps.get("next_queries"):
+                        st.markdown("**Suggested Follow-up Queries:**")
+                        for nq in gaps["next_queries"]:
+                            st.code(nq, language="markdown")
 
     st.markdown("---")
     
