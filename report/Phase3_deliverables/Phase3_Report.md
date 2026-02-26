@@ -34,6 +34,8 @@ Proper chunking is critical for effective retrieval and grounded generation. Dur
 
 Instead of a generic chatbot, the PRP creates actionable artifacts. The "Synthesis Memo" generator triggers an independent LLM run scoped strictly by the context provided in the previous interaction. This avoids common context-drift hallucinations seen in standard conversational agents.
 
+**Note:** A generated example of this artifact can be found in the repository at [`outputs/artifacts/sample_synthesis_memo.md`](file:outputs/artifacts/sample_synthesis_memo.md). This demonstrates the strict semantic citation formatting `(SourceID, ChunkID)`.
+
 ### JSON-Based Thread State
 
 Research threads are maintained in a local filesystem using lightweight JSON files. This provides the necessary persistence for the MVP without the overhead of introducing a relational database like SQLite or PostgreSQL at this stage.
