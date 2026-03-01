@@ -1,0 +1,37 @@
+[
+    {
+        "role": "user",
+        "content": "What are the limitations of Ragas?"
+    },
+    {
+        "role": "assistant",
+        "content": "I cannot find evidence for \"Ragas\" in the provided documents. The context appears to discuss RAG systems, which refer to Retrieval-Augmented Generation systems, but it does not mention \"Ragas\". (Source: None)",
+        "sources": [
+            {
+                "source_id": "2502.00306v2",
+                "chunk_id": "2502.00306v2_chunk_73",
+                "text": "7.1\nAssumptions on RAG Documents\nWhile we observe impressive inference performance with our at-\ntack, even under the presence of detection schemes, we now discuss\nthe list of assumptions made related to the nature of documents in\na RAG setup.\nLength Dependency. The documents targeted by our attack must\nbe sufficiently long to provide enough information for generating\nmeaningful questions. Applications involving short documents (e.g.,\n2-3 lines) may lack the necessary content to generate 30 distinct and\neffective questions. This limitation is less critical in domain-specific\nRAG applications, where documents are typically longer and rich\nenough in content to justify the use of a RAG system.\nGeneric Documents. In addition to length, the targeted docu-\nments must contain information that the base LLM is unaware\nof or not very good at. The attack may perform poorly on highly\ngeneric documents, as they do not contain enough specific details"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_120",
+                "text": "risk-aware organizational culture [166][167].\nIndustry-Specific Compliance Requirements\nThe implementation of RAG systems presents distinct regulatory challenges\nfor various sectors [168].\nTable 9.9: Regulatory Compliance Framework by Sector\nSector\nPrimary\nRegulations\nKey\nRequirements\nCompliance\nMechanisms\nEnforcement\nLevel\nHealthcareHIPAA, FDA,\nWHO Guidelines\nPrivacy\nprotection, safety\nvalidation\nAudit trails,\nencryption\nStrict\nFinancial SEC, FINRA,\nBasel III\nAlgorithmic\ntransparency, fair\nlending\nReal-time\nmonitoring\nStrict\n50"
+            },
+            {
+                "source_id": "2407.12036v2",
+                "chunk_id": "2407.12036v2_chunk_16",
+                "text": "models can generate more relevant and precise responses. RAG involves a retriever component that encodes user\nqueries and searches an external data source for relevant information. This augmented query is then processed by\nthe LLM to produce a more accurate completion. For example, in legal applications, RAG can enhance discovery\n3"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_101",
+                "text": "as a result of insufficient or misleading context [123]. When the retrieved\ninformation exceeds the model context windows, context truncation failures\noccur, resulting in incomplete or distorted responses [124].\n7.3\nArchitecture Patterns for Scalable RAG Systems\nOperational efficiency, maintainability, and scalability necessitate meticu-\nlously designed architectures in production RAG systems [125]. According\nto organizational constraints, team capabilities, and deployment require-\nments, various architectural patterns provide distinct advantages [126].\n7.3.1\nComponent Architecture Patterns\nScalability and maintainability challenges are addressed by contemporary\nRAG systems through the implementation of a variety of architectural pat-\nterns [127]. These patterns have an impact on the velocity of development,\nthe complexity of the system, and the operational overhead [128].\nTable 8.6: RAG Architecture Pattern Comparison\n41"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_90",
+                "text": "architectures that are reliable, scalable, and trustworthy in production en-\nvironments [114].\nThe multi-component architecture of RAG systems is the source of their\ncomplexity, as retrieval mechanisms, knowledge bases, and generation mod-\n36"
+            }
+        ]
+    }
+]

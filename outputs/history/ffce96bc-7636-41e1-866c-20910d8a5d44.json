@@ -1,0 +1,37 @@
+[
+    {
+        "role": "user",
+        "content": "What is Self-RAG and how does it work?"
+    },
+    {
+        "role": "assistant",
+        "content": "Self-RAG is a self-evaluating RAG system that determines if augmenting the continued generation with retrieved passages would be helpful. If so, it outputs a retrieval token that calls a retriever model on demand (Step 1). Subsequently, SELF-RAG concurrently processes multiple retrieved passages, evaluating their relevance and then generating corresponding task outputs (Step 2). It then generates critique tokens to criticize its own output and choose the best one (Step 3) in terms of factuality and overall quality. This process differs from conventional RAG (Source: 2310.11511v1, Chunk: 2310.11511v1_chunk_4). Self-RAG utilizes reflection tokens to allow models to evaluate the relevance of retrieved passages, determine the necessity of retrieval, and evaluate the factual veracity of their own generations (Source: 2601.05264v1, Chunk: 2601.05264v1_chunk_137).",
+        "sources": [
+            {
+                "source_id": "2310.11511v1",
+                "chunk_id": "2310.11511v1_chunk_4",
+                "text": "indicate the need for retrieval and its generation quality respectively (Figure 1 right). In particular,\ngiven an input prompt and preceding generations, SELF-RAG first determines if augmenting the\ncontinued generation with retrieved passages would be helpful. If so, it outputs a retrieval token that\ncalls a retriever model on demand (Step 1). Subsequently, SELF-RAG concurrently processes multiple\nretrieved passages, evaluating their relevance and then generating corresponding task outputs (Step\n2). It then generates critique tokens to criticize its own output and choose best one (Step 3) in terms\nof factuality and overall quality. This process differs from conventional RAG (Figure 1 left), which\n1Our code and trained models are available at https://selfrag.github.io/.\n1\narXiv:2310.11511v1  [cs.CL]  17 Oct 2023"
+            },
+            {
+                "source_id": "2310.11511v1",
+                "chunk_id": "2310.11511v1_chunk_4",
+                "text": "indicate the need for retrieval and its generation quality respectively (Figure 1 right). In particular,\ngiven an input prompt and preceding generations, SELF-RAG first determines if augmenting the\ncontinued generation with retrieved passages would be helpful. If so, it outputs a retrieval token that\ncalls a retriever model on demand (Step 1). Subsequently, SELF-RAG concurrently processes multiple\nretrieved passages, evaluating their relevance and then generating corresponding task outputs (Step\n2). It then generates critique tokens to criticize its own output and choose best one (Step 3) in terms\nof factuality and overall quality. This process differs from conventional RAG (Figure 1 left), which\n1Our code and trained models are available at https://selfrag.github.io/.\n1\narXiv:2310.11511v1  [cs.CL]  17 Oct 2023"
+            },
+            {
+                "source_id": "2310.11511v1",
+                "chunk_id": "2310.11511v1_chunk_4",
+                "text": "indicate the need for retrieval and its generation quality respectively (Figure 1 right). In particular,\ngiven an input prompt and preceding generations, SELF-RAG first determines if augmenting the\ncontinued generation with retrieved passages would be helpful. If so, it outputs a retrieval token that\ncalls a retriever model on demand (Step 1). Subsequently, SELF-RAG concurrently processes multiple\nretrieved passages, evaluating their relevance and then generating corresponding task outputs (Step\n2). It then generates critique tokens to criticize its own output and choose best one (Step 3) in terms\nof factuality and overall quality. This process differs from conventional RAG (Figure 1 left), which\n1Our code and trained models are available at https://selfrag.github.io/.\n1\narXiv:2310.11511v1  [cs.CL]  17 Oct 2023"
+            },
+            {
+                "source_id": "2310.11511v1",
+                "chunk_id": "2310.11511v1_chunk_4",
+                "text": "indicate the need for retrieval and its generation quality respectively (Figure 1 right). In particular,\ngiven an input prompt and preceding generations, SELF-RAG first determines if augmenting the\ncontinued generation with retrieved passages would be helpful. If so, it outputs a retrieval token that\ncalls a retriever model on demand (Step 1). Subsequently, SELF-RAG concurrently processes multiple\nretrieved passages, evaluating their relevance and then generating corresponding task outputs (Step\n2). It then generates critique tokens to criticize its own output and choose best one (Step 3) in terms\nof factuality and overall quality. This process differs from conventional RAG (Figure 1 left), which\n1Our code and trained models are available at https://selfrag.github.io/.\n1\narXiv:2310.11511v1  [cs.CL]  17 Oct 2023"
+            },
+            {
+                "source_id": "2601.05264v1",
+                "chunk_id": "2601.05264v1_chunk_137",
+                "text": "9.5\nSelf-Evaluating\nRAG\nSystems\nand\nInternal\nFact-\nChecking Modules\nThe advancement of autonomous, reliable, and trustworthy AI systems is\nrepresented by the development of self-evaluating RAG systems with in-\ncorporated fact-checking capabilities [195][196][197].\nThese architectures\nare equipped with advanced self-monitoring, error detection, and correc-\ntion mechanisms that facilitate the continuous development of quality and\nthe mitigation of risks [195][198].\n9.5.1\nArchitectures and Mechanisms for Self-Evaluation\nA novel approach is introduced by the Self RAG framework, which trains\nlanguage models to retrieve, generate, and critique through self-reflection\n[195][196][197].\nThis system utilizes reflection tokens to allow models to\nevaluate the relevance of retrieved passages, determine the necessity of re-\ntrieval, and evaluate the factual veracity of their own generations [195][196].\nThe framework is capable of accommodating a variety of downstream appli-"
+            }
+        ]
+    }
+]

@@ -4,7 +4,56 @@
 
 _Completed._ See `report/` for artifacts.
 
-## Phase 2: Research-Grade RAG (Current)
+## Quickstart (Phase 3 Product)
+
+Run this from the project root (`Phase 3`) for a reliable local setup.
+
+### 1) Create and activate Python 3.12 environment
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+```
+
+### 2) Install dependencies
+
+Use one of the following:
+
+- `requirements.txt` for normal development install.
+- `requirements.lock` for reproducible, pinned installs.
+
+```bash
+pip install -r requirements.txt
+# or (reproducible)
+# pip install -r requirements.lock
+```
+
+### 3) Configure environment
+
+Create a `.env` file in project root:
+
+```bash
+GROQ_API_KEY=gsk_...
+```
+
+### 4) Populate corpus (if needed)
+
+If `data/raw/` and `data/chroma_db/` are not already populated:
+
+```bash
+python3 src/main.py fetch
+python3 src/main.py ingest
+```
+
+### 5) Launch the portal
+
+```bash
+python3 src/main.py ui
+```
+
+The app will run at `http://localhost:8501`.
+
+## Phase 2: Research-Grade RAG
 
 ### Setup
 
@@ -80,3 +129,4 @@ This will open a web interface where you can:
   - `rag/`: RAG engine (Retriever + Generator).
   - `eval/`: Evaluation scripts.
 - `outputs/`: Evaluation reports.
+- `report/AI_usage_disclosure.md`: Required AI usage log for submission.

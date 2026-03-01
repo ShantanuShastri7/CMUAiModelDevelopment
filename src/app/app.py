@@ -3,6 +3,8 @@ import os
 import json
 import uuid
 import sys
+import csv
+import io
 
 # Ensure src can be imported
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -78,6 +80,25 @@ def get_latest_eval_report():
     latest_file = max(md_files, key=lambda x: os.path.getmtime(os.path.join(eval_dir, x)))
     with open(os.path.join(eval_dir, latest_file), 'r') as f:
         return f.read(), latest_file
+
+def build_evidence_csv(query, answer, sources):
+    """Builds a CSV export for the current answer and its retrieved evidence."""
+    buffer = io.StringIO()
+    fieldnames = ["query", "answer", "source_id", "chunk_id", "evidence_snippet", "citation"]
+    writer = csv.DictWriter(buffer, fieldnames=fieldnames)
+    writer.writeheader()
+    for source in sources:
+        source_id = source.get("source_id", "Unknown")
+        chunk_id = source.get("chunk_id", "Unknown")
+        writer.writerow({
+            "query": query,
+            "answer": answer,
+            "source_id": source_id,
+            "chunk_id": chunk_id,
+            "evidence_snippet": source.get("text", ""),
+            "citation": f"({source_id}, {chunk_id})"
+        })
+    return buffer.getvalue()
 
 # ---- Sidebar (History & Evaulation Navigation) ----
 st.sidebar.title("Navigation")
@@ -195,18 +216,66 @@ if page == "Research Assistant":
                         "sources": sources_data
                     })
                     save_thread()
+
+                    # Show KG and Gaps buttons for this new reply immediately (same as in history loop)
+                    last_idx = len(st.session_state.chat_history) - 1
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        if st.button("🕸️ Generate Knowledge Graph", key=f"kg_btn_new_{last_idx}"):
+                            with st.spinner("Extracting Knowledge Graph..."):
+                                from langchain_core.documents import Document
+                                docs = [Document(page_content=s["text"], metadata={"source_id": s["source_id"], "chunk_id": s["chunk_id"]}) for s in sources_data]
+                                graph_data = rag.extract_knowledge_graph(query, docs)
+                                st.session_state.kg_state[last_idx] = graph_data
+                    with col2:
+                        if st.button("🔍 Find Evidence Gaps", key=f"gap_btn_new_{last_idx}"):
+                            with st.spinner("Analyzing gaps in evidence..."):
+                                from langchain_core.documents import Document
+                                docs = [Document(page_content=s["text"]) for s in sources_data]
+                                gap_data = rag.find_evidence_gaps(query, answer, docs)
+                                st.session_state.gap_state[last_idx] = gap_data
+                    if last_idx in st.session_state.kg_state:
+                        st.markdown("#### Knowledge Graph")
+                        nodes = []
+                        edges = []
+                        kg = st.session_state.kg_state[last_idx]
+                        for n in kg.get("nodes", []):
+                            nodes.append(Node(id=n["id"], label=n["label"], size=25))
+                        for e in kg.get("edges", []):
+                            edges.append(Edge(source=e["source"], target=e["target"], label=e.get("label", "")))
+                        config = Config(width=700, height=400, directed=True, nodeHighlightBehavior=True, highlightColor="#F7A7A6", collapsible=True)
+                        if nodes and edges:
+                            agraph(nodes=nodes, edges=edges, config=config)
+                        else:
+                            st.info("No clear entities/relationships found to graph.")
+                    if last_idx in st.session_state.gap_state:
+                        gaps = st.session_state.gap_state[last_idx]
+                        st.warning(f"**Missing Evidence:** {gaps.get('missing_evidence', 'None identified.')}")
+                        if gaps.get("next_queries"):
+                            st.markdown("**Suggested Follow-up Queries:**")
+                            for nq in gaps["next_queries"]:
+                                st.code(nq, language="markdown")
                     
                 except Exception as e:
                     st.error(f"Error answering query: {e}")
 
     # Artifact Generation Section
     if len(st.session_state.chat_history) > 0 and st.session_state.chat_history[-1]["role"] == "assistant":
+        last_assistant_msg = st.session_state.chat_history[-1]
+        last_user_msg = st.session_state.chat_history[-2] if len(st.session_state.chat_history) >= 2 else {"content": ""}
         st.markdown("### Generate Artifacts")
+        st.download_button(
+            label="📥 Download Evidence Table (CSV)",
+            data=build_evidence_csv(
+                last_user_msg.get("content", ""),
+                last_assistant_msg.get("content", ""),
+                last_assistant_msg.get("sources", [])
+            ),
+            file_name=f"Evidence_Table_{st.session_state.current_thread_id[:8]}.csv",
+            mime="text/csv"
+        )
         if st.button("Generate Synthesis Memo"):
             with st.spinner("Synthesizing memo..."):
-                last_assistant_msg = st.session_state.chat_history[-1]
-                last_user_msg = st.session_state.chat_history[-2]
-                
                 # Re-construct docs for the method
                 from langchain_core.documents import Document
                 docs = [
