@@ -12,11 +12,13 @@ The Personal Research Portal (PRP) is a lightweight, full-stack Retrieval-Augmen
 - **Frontend App (`src/app/app.py`)**: A Streamlit application that provides the primary UI. It parses the return from the RAG Engine, formats outputs for readability, and handles session caching and thread saving via local JSON files.
 - **Evaluator (`src/eval/evaluator.py`)**: An automated harness utilizing RAGAS that tests the system on 20 predefined queries, capturing Context Precision, Faithfulness, and Answer Relevancy.
 
+End-to-end, the flow is: papers are fetched into `data/raw/` and listed in the data manifest; the ingestor parses and chunks them into ChromaDB; the UI calls the RAG engine for each query, which retrieves, reranks, and then generates an answer with citations. Threads and eval reports are written to `outputs/` so everything is file-based and easy to inspect.
+
 ## 2. Design Choices
 
 ### Streamlit for the MVP Frontend
 
-Streamlit was chosen for the User Interface because of its rapid prototyping capabilities for Python, especially regarding LLM data presentation. It natively supports markdown, expandable content boxes for viewing raw citations, and file downloads out-of-the-box.
+Streamlit was chosen for the User Interface because of its rapid prototyping capabilities for Python, especially regarding LLM data presentation. It natively supports markdown, expandable content boxes for viewing raw citations, and file downloads out-of-the-box. We considered Gradio for a more app-like feel but stuck with Streamlit so we could iterate quickly and keep the code in one place without custom front-end work. The trade-off is a less custom look; the upside is that the whole portal runs with a single `streamlit run` and is straightforward for someone else to run locally.
 
 ### Local Embeddings and Reranking
 
@@ -40,6 +42,10 @@ Instead of a generic chatbot, the PRP creates actionable artifacts. The "Synthes
 
 Research threads are maintained in a local filesystem using lightweight JSON files. This provides the necessary persistence for the MVP without the overhead of introducing a relational database like SQLite or PostgreSQL at this stage.
 
+### What the UI Actually Provides
+
+For clarity, the portal currently offers: a main chat where you type a research question; retrieval and an answer with inline citations; an expandable “View Retrieved Evidence” panel showing source and chunk IDs plus snippets; “Generate Knowledge Graph” and “Find Evidence Gaps” buttons that appear right after each answer; a “Generate Artifacts” section with Synthesis Memo and downloads for both Markdown (memo) and CSV (evidence table); thread management via sidebar (New Thread, load saved threads); and an “Evaluation Report” page that shows the latest run from `outputs/eval/`. All of this is driven by the same RAG engine and evaluation harness described above.
+
 ## 3. Evaluation & Metrics
 
 Based on the integrated RAGAS evaluation suite, the PRP handles querying effectively.
@@ -57,6 +63,8 @@ To quantify the impact of our Cross-Encoder reranker (`ms-marco-MiniLM-L-12-v2`)
 1.  **Without Reranking (Top-5 direct from ChromaDB)**: Context Precision hovered around `0.65`. Pure cosine similarity on dense embeddings (`all-MiniLM-L6-v2`) occasionally favored chunks with high lexical overlap but low actual relevance to the query's core intent.
 2.  **With Reranking (Retrieve Top 25 -> Rerank to Top 5)**: Context Precision improved significantly to `0.82`. The cross-encoder actively filtered out tangentially related chunks, directly contributing to a higher Answer Relevance score and lower hallucination rates.
 
+The evaluation set follows the Phase 2 design: 20 queries split into direct (e.g. “What is Context Precision in RAG evaluation?”), synthesis/multi-hop (e.g. comparing methods or metrics), and edge cases (e.g. “Does the corpus contain evidence for [claim]?”). In practice we see both strong citations—e.g. Self-RAG and Corrective RAG style questions get answers with proper (Source, Chunk) references—and correct refusals when the corpus does not support the question (e.g. “I cannot find evidence for this in the provided documents”). That mix is what we wanted from the trust behavior.
+
 _Representative Failure Case:_ Very ambiguous edge-case queries (e.g., "Discuss arbitrary external events") successfully result in the system stating "I cannot find evidence for this in the provided documents." This behavior aligns directly with the goal of reducing hallucinations.
 
 ## 4. Limitations
@@ -64,6 +72,8 @@ _Representative Failure Case:_ Very ambiguous edge-case queries (e.g., "Discuss 
 1. **Document Parsing Consistency**: Heavily formatted PDFs with multiple columns occasionally yield disorganized textual chunks, slightly confusing the downstream generator when interpreting table references.
 2. **Context Limits**: Generating extremely long synthesis memos across more than 5-10 distinct papers starts to stretch the context capacities, requiring more intelligent hierarchical summarization techniques.
 3. **Latency with Groq Rate Limits**: Extensive back-to-back evaluations can trigger API limits from the generation provider.
+
+4. **Single-user and local-only**: The app is built for one user on one machine. There is no authentication, no multi-user state, and no hosted deployment. Threads and exports live in local `outputs/` directories, which is fine for a research prototype but would need to change for shared use.
 
 ## 5. Next Steps
 
@@ -81,6 +91,8 @@ The PRP is designed around a practical research workflow instead of open-ended c
 4. **Evidence inspection** in the expandable context panel.
 5. **Artifact generation** (Synthesis Memo) for downstream research writing.
 6. **Export and persistence** through download buttons and thread state saved to local files.
+
+After each answer, the user can optionally run “Find Evidence Gaps” to see what’s missing and get suggested follow-up queries, or “Generate Knowledge Graph” to see entities and relationships extracted from the retrieved chunks. Both run on the same context that was used for the answer, so they stay aligned with what the system actually cited.
 
 This flow intentionally separates "answering" from "artifact writing." The answer path optimizes for directness and traceability, while the artifact path optimizes for structured synthesis and readability.
 
@@ -144,13 +156,13 @@ python3 src/main.py eval
 - **Saved research threads**: `outputs/history/`
 - **Artifacts/exports**: `outputs/artifacts/`
 
-This explicit mapping is included so that each demonstrated feature has an auditable file output.
+The evaluation can be run from the command line with `python3 src/main.py eval`; it writes a timestamped report (e.g. `eval_report_YYYYMMDD_HHMMSS.md`) into `outputs/eval/`. The UI’s “Evaluation Report” page simply loads the latest of these files, so graders can either run the eval themselves or open an existing report. This explicit mapping is included so that each demonstrated feature has an auditable file output.
 
 ## 9. Artifact Design and Export Strategy
 
-The current MVP artifact is a **Synthesis Memo** with citation-backed claims and downloadable markdown output. This was selected because it reflects realistic research deliverables (briefs, literature synthesis drafts, and report sections).
+The current MVP artifact is a **Synthesis Memo** with citation-backed claims and downloadable markdown output. This was selected because it reflects realistic research deliverables (briefs, literature synthesis drafts, and report sections). The memo is generated from the same retrieved chunks and prior answer, so it stays grounded; users can download it as Markdown from the “Download Synthesis Memo (Markdown)” button.
 
-In addition, the portal supports tabular evidence export so that users can move from narrative answers to structured claim-evidence traceability. This supports downstream analysis in spreadsheet workflows and improves auditability.
+In addition, the portal supports **Evidence Table** export as CSV. Each row includes the query, the answer, source_id, chunk_id, the evidence snippet, and a citation string. That gives users a spreadsheet-friendly view of which chunks backed the answer and makes it easy to audit or reuse in other tools. So in practice we support both artifact types the assignment asks for: a synthesis memo (Markdown) and an evidence-style table (CSV), plus the raw citations in the UI. This supports downstream analysis in spreadsheet workflows and improves auditability.
 
 ### 9.1 Why this artifact choice is appropriate
 
@@ -186,10 +198,10 @@ Local embeddings and ChromaDB reduce API costs and improve offline reproducibili
 
 ### Trade-off 3: Single-artifact depth vs. many shallow artifacts
 
-The system currently goes deeper on one artifact type (Synthesis Memo) rather than implementing several partially complete artifact modes.
+The system currently goes deeper on one artifact type (Synthesis Memo) rather than implementing several partially complete artifact modes. We added the evidence-table CSV so that “export in Markdown/CSV” is covered without building a separate annotated-bibliography generator; the CSV doubles as a minimal evidence table for traceability.
 
 ## 12. Conclusion
 
 Phase 3 successfully transforms the research-grade RAG backend into a usable product-oriented Personal Research Portal. The delivered system supports question answering with evidence, citation inspection, thread persistence, artifact generation, export paths, and integrated evaluation.
 
-The most important achieved objective is not just "chat with papers," but a repeatable and auditable research workflow where each answer can be traced back to ingested evidence. Future iterations will focus on deeper automation (agentic loop), richer retrieval controls, and stronger long-context synthesis reliability.
+The most important achieved objective is not just "chat with papers," but a repeatable and auditable research workflow where each answer can be traced back to ingested evidence. Citations resolve via the data manifest, exports (Markdown and CSV) are in place, and the evaluation view plus run logs give a clear picture of how the system performs. Future iterations will focus on deeper automation (agentic loop), richer retrieval controls, and stronger long-context synthesis reliability.
